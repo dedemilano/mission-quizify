@@ -19,8 +19,8 @@ class ChromaCollectionCreator:
         :param embeddings_config: An embedding client for embedding documents.
         """
         self.processor = processor      # This will hold the DocumentProcessor from Task 3
-        self.embed_model = embed_model  # This will hold the EmbeddingClient from Task 4
-        self.db = None                  # This will hold the Chroma collection
+        self.embed_model = embed_model # This will hold the EmbeddingClient from Task 4
+        self.db = None         # This will hold the Chroma collection
     
     def create_chroma_collection(self):
         """
@@ -57,6 +57,12 @@ class ChromaCollectionCreator:
         # Use a TextSplitter from Langchain to split the documents into smaller text chunks
         # https://python.langchain.com/docs/modules/data_connection/document_transformers/character_text_splitter
         # [Your code here for splitting documents]
+
+        text_splitter = CharacterTextSplitter(separator='\n\n', chunk_size=1000, chunk_overlap=200 , length_function=len , is_separator_regex=False)
+
+        aux_array = list(map(lambda page: page.page_content, self.processor.pages))
+        texts = text_splitter.create_documents(aux_array)
+        
         
         if texts is not None:
             st.success(f"Successfully split pages to {len(texts)} documents!", icon="✅")
@@ -65,11 +71,15 @@ class ChromaCollectionCreator:
         # https://docs.trychroma.com/
         # Create a Chroma in-memory client using the text chunks and the embeddings model
         # [Your code here for creating Chroma collection]
+        self.db = Chroma.from_documents(texts[:5], self.embed_model.client, persist_directory="./chroma_db")
         
         if self.db:
             st.success("Successfully created Chroma Collection!", icon="✅")
         else:
             st.error("Failed to create Chroma Collection!", icon="🚨")
+    
+    def as_retriever(self):
+        return self.db.as_retriever()
     
     def query_chroma_collection(self, query) -> Document:
         """
@@ -93,7 +103,7 @@ if __name__ == "__main__":
     
     embed_config = {
         "model_name": "textembedding-gecko@003",
-        "project": "YOUR PROJECT ID HERE",
+        "project": "radical-ai-starter-project",
         "location": "us-central1"
     }
     

@@ -125,11 +125,12 @@ class QuizGenerator:
 
         for _ in range(self.num_questions):
             ##### YOUR CODE HERE #####
-            question_str = # Use class method to generate question
+            question_str = self.generate_question_with_vectorstore()
             
             ##### YOUR CODE HERE #####
             try:
                 # Convert the JSON String to a dictionary
+                question = json.loads(question_str)
             except json.JSONDecodeError:
                 print("Failed to decode question JSON.")
                 continue  # Skip this iteration if JSON decoding fails
@@ -139,6 +140,7 @@ class QuizGenerator:
             # Validate the question using the validate_question method
             if self.validate_question(question):
                 print("Successfully generated unique question")
+                self.question_bank.append(question)
                 # Add the valid and unique question to the bank
             else:
                 print("Duplicate or invalid question detected.")
@@ -169,6 +171,15 @@ class QuizGenerator:
         ##### YOUR CODE HERE #####
         # Consider missing 'question' key as invalid in the dict object
         # Check if a question with the same text already exists in the self.question_bank
+        is_unique = True
+        try:
+            question_text = question.get("question")
+        except AttributeError:
+            print("Invalid question format.")
+            return False
+        for q in self.question_bank:
+            if q.get("question") == question_text:
+                is_unique = False
         ##### YOUR CODE HERE #####
         return is_unique
 
@@ -178,7 +189,7 @@ if __name__ == "__main__":
     
     embed_config = {
         "model_name": "textembedding-gecko@003",
-        "project": "YOUR-PROJECT-ID-HERE",
+        "project": "radical-ai-starter-project",
         "location": "us-central1"
     }
     

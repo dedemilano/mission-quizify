@@ -70,9 +70,7 @@ class QuizGenerator:
 
         Note: Ensure you have appropriate access or API keys if required by the model or platform.
         """
-        self.llm = VertexAI(
-            ############# YOUR CODE HERE ############
-        )
+        self.llm = VertexAI(model_name="gemini-pro", temperature=0.5, max_output_tokens=100)
         
     def generate_question_with_vectorstore(self):
         """
@@ -101,19 +99,26 @@ class QuizGenerator:
         """
         ############# YOUR CODE HERE ############
         # Initialize the LLM from the 'init_llm' method if not already initialized
+        self.init_llm()
         # Raise an error if the vectorstore is not initialized on the class
+        try:
+            self.vectorstore is not None
+        except:
+            raise ValueError("Vectorstore not provided.")
         ############# YOUR CODE HERE ############
         
         from langchain_core.runnables import RunnablePassthrough, RunnableParallel
 
         ############# YOUR CODE HERE ############
         # Enable a Retriever using the as_retriever() method on the VectorStore object
+        retriever = self.vectorstore.as_retriever()
         # HINT: Use the vectorstore as the retriever initialized on the class
         ############# YOUR CODE HERE ############
         
         ############# YOUR CODE HERE ############
         # Use the system template to create a PromptTemplate
         # HINT: Use the .from_template method on the PromptTemplate class and pass in the system template
+        system_prompt = PromptTemplate.from_template(self.system_template)
         ############# YOUR CODE HERE ############
         
         # RunnableParallel allows Retriever to get relevant documents
@@ -126,6 +131,7 @@ class QuizGenerator:
         # Create a chain with the Retriever, PromptTemplate, and LLM
         # HINT: chain = RETRIEVER | PROMPT | LLM 
         ############# YOUR CODE HERE ############
+        chain = setup_and_retrieval | system_prompt | self.llm
 
         # Invoke the chain with the topic as input
         response = chain.invoke(self.topic)
@@ -141,7 +147,7 @@ if __name__ == "__main__":
     
     embed_config = {
         "model_name": "textembedding-gecko@003",
-        "project": "YOUR-PROJECT-ID-HERE",
+        "project": "radical-ai-starter-project",
         "location": "us-central1"
     }
     

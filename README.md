@@ -94,6 +94,253 @@ Before you begin, ensure you have the following installed on your system:
 - **Google Cloud Account** with Vertex AI enabled
 - **Git** to clone the repository
 
+# Quiz Builder Application
+
+This is a **Streamlit-based application** that generates quiz questions using **Google VertexAI** and **LangChain** components. The app allows users to upload documents, choose a quiz topic, select the number of questions, and generate a quiz based on the document's content. The quiz is generated with multiple-choice questions, and the correct answer is provided with an explanation.
+
+## Features
+
+- **Document Ingestion**: Upload documents (e.g., PDFs) for context.
+- **Quiz Generation**: Generate a quiz on a specific topic, with 1 to 10 multiple-choice questions.
+- **ChromaDB Integration**: Leverages a vectorstore (ChromaDB) for document context retrieval.
+- **VertexAI-powered LLM**: Utilizes the `gemini-pro` model to generate quiz questions and answers.
+- **Multiple-Choice Questions**: Each question comes with 4 options, the correct answer, and an explanation.
+  
+## Getting Started
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- Python 3.8 or higher
+- Streamlit
+- LangChain
+- Google VertexAI SDK
+- ChromaDB
+- Other dependencies as listed in `requirements.txt`
+
+### Installation
+
+1. Clone this repository:
+
+    ```bash
+    git clone https://github.com/your-username/quiz-builder.git
+    ```
+
+2. Navigate into the project directory:
+
+    ```bash
+    cd quiz-builder
+    ```
+
+3. Install the required dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4. Set up Google VertexAI credentials and configuration (ensure you have access to the **gemini-pro** model):
+
+    ```bash
+    export GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account-file.json
+    ```
+
+### Usage
+
+1. Run the Streamlit application:
+
+    ```bash
+    streamlit run app.py
+    ```
+
+2. On the application interface, upload your PDF documents for ingestion.
+
+3. Input the topic for the quiz in the **Topic for Generative Quiz** field.
+
+4. Use the slider to select the number of quiz questions (up to 10).
+
+5. Click **Submit** to generate the quiz.
+
+6. View the generated quiz question with answer choices and an explanation.
+
+### Example
+
+Here's a quick example of how the quiz generator works:
+
+```python
+from quiz_builder import QuizGenerator
+
+# Create a quiz generator
+generator = QuizGenerator(topic="Quantum Computing", num_questions=5, vectorstore=chroma_vectorstore)
+
+# Generate a quiz question
+question = generator.generate
+```
+
+
+# Quiz Builder Application
+
+## Description
+Cette application **Quiz Builder** permet aux utilisateurs de générer des quiz personnalisés basés sur un sujet donné et le contenu de documents PDF. L'application utilise l'API LangChain et Google Vertex AI pour générer des questions de quiz avec des choix multiples, en s'appuyant sur des documents ingérés dans une base de données vectorielle (ChromaDB).
+
+## Fonctionnalités
+- **Génération de questions de quiz** : Génère jusqu'à 10 questions basées sur un sujet fourni.
+- **Support de documents PDF** : Les utilisateurs peuvent télécharger des PDF, qui sont ensuite traités pour extraire des informations pertinentes.
+- **Utilisation de LLM (Large Language Models)** : L'application s'appuie sur Google Vertex AI pour générer des questions et des réponses.
+- **Intégration de ChromaDB** : Une base de données vectorielle est utilisée pour stocker et interroger les documents pertinents.
+
+## Prérequis
+
+Avant de commencer, assurez-vous d'avoir installé les dépendances suivantes :
+
+- Python 3.x
+- [Streamlit](https://streamlit.io/) (`pip install streamlit`)
+- [LangChain](https://github.com/hwchase17/langchain) (`pip install langchain`)
+- [Google Vertex AI SDK](https://cloud.google.com/vertex-ai/docs/start/quickstarts) pour l'utilisation des modèles LLM
+- Autres librairies requises : `json`, `sys`, `os`
+
+## Installation
+
+1. Clonez ce dépôt :
+   ```bash
+   git clone https://github.com/your-username/quiz-builder.git
+   cd quiz-builder
+   ```
+
+# Quiz Generator with Streamlit and LangChain
+
+This project is a **Quiz Builder** that generates quiz questions based on a document, a selected topic, and the number of questions specified by the user. The application uses Streamlit for the user interface, LangChain for language model interactions, and ChromaDB for vector storage and querying.
+
+## Features
+
+- **Document Ingestion**: Processes PDFs and embeds the contents for vector search.
+- **Quiz Generation**: Creates quiz questions from a specific topic, with multiple-choice answers and explanations.
+- **Language Model**: Uses Google's VertexAI model for generating quiz questions and ChromaDB for vectorstore-based context retrieval.
+- **Multiple Choice Interface**: Presents the generated questions with multiple choices and validates the user’s selection.
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- Python 3.8+
+- Streamlit
+- LangChain
+- VertexAI (Google Cloud)
+- ChromaDB (for vector storage)
+
+### Installation
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/quiz-builder.git
+    cd quiz-builder
+    ```
+
+2. Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Set up Google Vertex AI for embedding model usage:
+    - Set up your Google Cloud Project.
+    - Enable Vertex AI and obtain credentials.
+    - Configure the `embed_config` with your project details.
+
+### Configuration
+
+Ensure the `embed_config` dictionary in the code is updated with your Google Cloud project info:
+
+```python
+embed_config = {
+    "model_name": "textembedding-gecko@003",
+    "project": "your-google-cloud-project-id",
+    "location": "us-central1"
+}
+```
+# Quiz Builder Application
+
+This project is a **Quiz Builder** application that allows users to generate quizzes from PDF documents based on a specified topic. The application utilizes Streamlit for the front-end interface and integrates with various tasks for document processing and quiz generation.
+
+## Features
+
+- **PDF Document Ingestion**: Process and embed PDF documents for quiz generation.
+- **Dynamic Quiz Creation**: Generate multiple-choice questions based on user-defined topics.
+- **Session State Management**: Store quiz state, including question banks and user responses.
+- **Interactive UI**: Navigate through quiz questions and receive immediate feedback on answers.
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- Python 3.8+
+- Streamlit
+- Required packages (check `requirements.txt`)
+
+### Installation
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/quiz-builder.git
+    cd quiz-builder
+    ```
+
+2. Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Set up your embedding model configuration in the code:
+    ```python
+    embed_config = {
+        "model_name": "textembedding-gecko@003",
+        "project": "your-google-cloud-project-id",
+        "location": "us-central1"
+    }
+    ```
+
+### Running the Application
+
+1. Start the Streamlit app:
+    ```bash
+    streamlit run app.py
+    ```
+
+2. The app will open in your browser. You can select PDFs for ingestion, specify a topic for the quiz, and generate quiz questions.
+
+### Code Structure
+
+- **DocumentProcessor**: Handles the ingestion and embedding of PDF documents.
+- **EmbeddingClient**: Manages the embedding service to transform documents into vector representations.
+- **ChromaCollectionCreator**: Creates a vector database for efficient querying of embedded documents.
+- **QuizGenerator**: Generates quiz questions based on a given topic and the embedded documents.
+- **QuizManager**: Manages quiz state, including tracking current questions and navigating through them.
+
+### Example Usage
+
+1. **Load PDF Documents**: Select the PDF files you want to process.
+2. **Specify Quiz Parameters**: Enter the topic for the quiz and select the number of questions (1 to 10).
+3. **Generate Quiz**: Click the `Submit` button to generate the quiz questions.
+4. **Answer Questions**: Navigate through the quiz using "Next" and "Previous" buttons, and submit your answers to receive immediate feedback.
+
+### How It Works
+
+- The application ingests the selected PDF documents and creates embeddings for their contents.
+- It uses the specified topic to generate multiple-choice questions, which are stored in the session state.
+- Users can navigate through the quiz and receive feedback on their answers, including explanations for the correct choices.
+
+### Contribution
+
+Feel free to fork this repository and submit pull requests for enhancements, bug fixes, or additional features.
+
+### License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
+
 
 
 

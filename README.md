@@ -69,5 +69,31 @@ Install the necessary dependencies:
 
 ```bash
 pip install streamlit langchain-google-vertexai chromadb
+```
+
+
+# Quiz Builder with Streamlit and LangChain
+## Introduction
+
+**Quiz Builder** is an interactive application developed with Streamlit and LangChain. It allows users to upload PDF documents, specify a quiz topic, choose the desired number of questions, and generate a quiz based on the content of the uploaded documents. The app integrates advanced features such as document processing, text embeddings with Google Cloud Vertex AI, and Chroma collections for efficient search.
+
+## Features
+
+- **Multiple PDF Uploads**: Allows users to upload multiple PDF files at once.
+- **Content Extraction**: Uses the `DocumentProcessor` to extract content from PDFs by page.
+- **Text Embedding**: Generates embeddings for queries and documents using `EmbeddingClient` connected to Google Cloud Vertex AI.
+- **Chroma Collection Creation**: Creates a Chroma collection to index and search through the processed documents.
+- **Quiz Generation**: Enables users to specify a topic and select the number of questions for generating a quiz based on the document content.
+- **Intuitive User Interface**: Built with Streamlit for a smooth and interactive user experience.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your system:
+
+- **Python 3.8+**
+- **Google Cloud Account** with Vertex AI enabled
+- **Git** to clone the repository
+
+
 
 

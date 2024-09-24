@@ -3,17 +3,17 @@ import os
 import sys
 import json
 sys.path.append(os.path.abspath('../../'))
-from tasks.task_3.task_3_solution import DocumentProcessor
-from tasks.task_4.task_4_solution import EmbeddingClient
-from tasks.task_5.task_5_solution import ChromaCollectionCreator
-from tasks.task_8.task_8_solution import QuizGenerator
-from tasks.task_9.task_9_solution import QuizManager
+from tasks.task_3.task_3 import DocumentProcessor
+from tasks.task_4.task_4 import EmbeddingClient
+from tasks.task_5.task_5 import ChromaCollectionCreator
+from tasks.task_8.task_8 import QuizGenerator
+from tasks.task_9.task_9 import QuizManager
 
 if __name__ == "__main__":
     
     embed_config = {
         "model_name": "textembedding-gecko@003",
-        "project": "emerald-lattice-424023-k3",
+        "project": "radical-ai-starter-project",
         "location": "us-central1"
     }
     
